@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Digital Clock Widget by Chua Nghi Ten
 // @namespace    http://tampermonkey.net/
-// @version      2024-05-12_19.46.29
+// @version      2024-05-12_21.54
 // @license      GNU GPLv3
 // @description  Provide a seemingly useless clock in the corner of the screen.
 // @author       Chua Nghi Ten
