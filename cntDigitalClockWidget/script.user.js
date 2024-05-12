@@ -7,6 +7,8 @@
 // @author       Chua Nghi Ten
 // @match        *://*/*
 // @icon         https://github.com/chuanghiten/chuanghiten.github.io/raw/main/favicon.ico
+// @updateURL    https://github.com/chuanghiten/CNT-User-Script/raw/main/cntDigitalClockWidget/script.user.js
+// @downloadURL  https://github.com/chuanghiten/CNT-User-Script/raw/main/cntDigitalClockWidget/script.user.js
 // @grant        none
 // ==/UserScript==
 
