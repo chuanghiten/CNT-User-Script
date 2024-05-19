@@ -28,10 +28,17 @@
       secondsHided = false,
       smoothSeconds = true,
       hour12 = true,
-      showAMPM = true;
+      showAMPM = true,
+      autoCheckUpdate = true,
+      updateChecking = false,
+      cntDelayMs = 0,
+      cntDelayEnable = false,
+      cntDelayCallBack = () => {},
+      cntDelayFollowCallBack = () => {};
     const bodyElement = window.document.querySelector("html body"),
       cntTimeWidget = window.document.createElement("div"),
       cntStyle = window.document.createElement("style"),
+      currentVersion = "2024.05.14.22.52",
       windowSize = {
         width: window.innerWidth,
         height: window.innerHeight,
@@ -51,13 +58,15 @@
           window.document
             .querySelectorAll(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path"
-            ).forEach((c) => {
-            c.setAttribute(
-              "d",
-              `M 1 9 C 1 4.6 4.6 1 9 1 H ${w10d5} C ${
-                clockWidth - 4.6
-              } 1 ${w1} 4.6 ${w1} 9 V ${h10d5} C ${w1} ${h0d4} ${w0d4} ${h1} ${w10d5} ${h1} H 9 C 4.6 ${h1} 1 ${h0d4} 1 ${h10d5} Z`
-            );})
+            )
+            .forEach((c) => {
+              c.setAttribute(
+                "d",
+                `M 1 9 C 1 4.6 4.6 1 9 1 H ${w10d5} C ${
+                  clockWidth - 4.6
+                } 1 ${w1} 4.6 ${w1} 9 V ${h10d5} C ${w1} ${h0d4} ${w0d4} ${h1} ${w10d5} ${h1} H 9 C 4.6 ${h1} 1 ${h0d4} 1 ${h10d5} Z`
+              );
+            });
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg"
@@ -153,6 +162,13 @@
         }
       },
       fr = 10,
+      cntDelay = () => {
+        cntDelayFollowCallBack();
+        if (cntDelayMs < Date.now()) {
+          cntDelayCallBack();
+          cntDelayEnable = false;
+        }
+      },
       updateTimeWithFPS = () => {
         time = new Date();
         if (cfr > fr) {
@@ -179,6 +195,7 @@
                   window.document.querySelector(
                     "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntHours"
                   ).innerHTML = hours;
+                if (autoCheckUpdate && !updateChecking) checkForUpdate();
               }
               if (minutes < 10)
                 window.document.querySelector(
@@ -228,25 +245,18 @@
           updateSeconds.seconds(
             (time.getSeconds() + time.getMilliseconds() / 999) / 60
           );
+        if (cntDelayEnable) cntDelay();
         window.requestAnimationFrame(updateTimeWithFPS);
       },
-      cookie = Object.freeze({
+      cntUserData = Object.freeze({
         write: (key, value) => {
-          window.document.cookie = `${key}=${value};path=/`;
+          window.localStorage.setItem(`${key}`, `${value}`);
         },
         read: (key) => {
-          let ckString = window.document.cookie,
-            i = 0,
-            ar;
-          ar = ckString.split(";");
-          while (i < ar.length && ar[i].search(key) == -1) {
-            ++i;
-          }
-          if (i < ar.length) return ar[i].slice(ar[i].indexOf("=") + 1);
-          return "";
+          return window.localStorage.getItem(`${key}`);
         },
         remove: (key) => {
-          window.document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+          window.localStorage.removeItem(`${key}`);
         },
       }),
       setViTriWidget = (w, h) => {
@@ -313,8 +323,8 @@
           e.preventDefault();
           widgetMove = false;
           getViTriWidget(windowSize.width, windowSize.height);
-          cookie.write("cntWidgetWidth", cntTimeOnWindowSize.width);
-          cookie.write("cntWidgetHeight", cntTimeOnWindowSize.height);
+          cntUserData.write("cntWidgetWidth", cntTimeOnWindowSize.width);
+          cntUserData.write("cntWidgetHeight", cntTimeOnWindowSize.height);
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover"
@@ -370,6 +380,16 @@
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
             )
             .removeEventListener("click", showAMPMClicked);
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+            )
+            .removeEventListener("click", autoUpdateSwitchClicked);
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
+            )
+            .removeEventListener("click", checkUpdateClicked);
         }
       },
       cntMoveButtonClicked = () => {
@@ -394,7 +414,7 @@
       },
       cntShowSecondsClicked = () => {
         if (!secondsHided) {
-          cookie.write("cntHideSeconds", "1");
+          cntUserData.write("cntHideSeconds", "1");
           window.document.querySelector(
             "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntSeconds"
           ).style.display = "none";
@@ -404,7 +424,7 @@
             )
             .removeAttribute("active");
         } else {
-          cookie.write("cntHideSeconds", "0");
+          cntUserData.write("cntHideSeconds", "0");
           window.document.querySelector(
             "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntSeconds"
           ).style.display = "inline";
@@ -431,7 +451,7 @@
       cntSmoothSecondsClicked = () => {
         if (smoothSeconds) {
           smoothSeconds = false;
-          cookie.write("cntSmoothSeconds", "0");
+          cntUserData.write("cntSmoothSeconds", "0");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
@@ -439,7 +459,7 @@
             .removeAttribute("active");
         } else {
           smoothSeconds = true;
-          cookie.write("cntSmoothSeconds", "1");
+          cntUserData.write("cntSmoothSeconds", "1");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
@@ -489,7 +509,7 @@
       showAMPMClicked = () => {
         if (showAMPM) {
           showAMPM = false;
-          cookie.write("cntShowAMPM", "0");
+          cntUserData.write("cntShowAMPM", "0");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
@@ -500,7 +520,7 @@
           ).style.display = "none";
         } else {
           showAMPM = true;
-          cookie.write("cntShowAMPM", "1");
+          cntUserData.write("cntShowAMPM", "1");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
@@ -534,7 +554,7 @@
       hour12SwitchClicked = () => {
         if (hour12) {
           hour12 = false;
-          cookie.write("cnt12Hour", "0");
+          cntUserData.write("cnt12Hour", "0");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.hour12Switch"
@@ -557,7 +577,7 @@
           showAMPMClicked();
         } else {
           hour12 = true;
-          cookie.write("cnt12Hour", "1");
+          cntUserData.write("cnt12Hour", "1");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.hour12Switch"
@@ -599,6 +619,174 @@
             .getBoundingClientRect().height
         );
       },
+      checkForUpdate = async () => {
+        const data = await fetch(
+          "https://raw.githubusercontent.com/chuanghiten/CNT-User-Script/main/cntDigitalClockWidget/version.json"
+        )
+          .then((v) => {
+            if (v.status == 200 || v.status == 304) return v.json();
+            else return false;
+          })
+          .catch((e) => {
+            console.log(e);
+            return false;
+          });
+        // console.log(data.version);
+        if (data) {
+          const currentVersionArray = currentVersion.split("."),
+            newVersionArray = data.version.split(".");
+          const updateStatus = currentVersionArray.every((c, i) => {
+            if (c < newVersionArray[i]) {
+              window.document.querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+              ).innerHTML =
+                '<span><a href="https:/' +
+                '/raw.githubusercontent.com/chuanghiten/CNT-User-Script/main/cntDigitalClockWidget/script.user.js">A new update is available. Check it now !!!</a></span><span title="Close" style="margin-left: 50px;">[ <span style="color: #f94b53; cursor: pointer;">X</span> ]</span>';
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                )
+                .setAttribute("active", "");
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus span + span span"
+                )
+                .addEventListener(
+                  "click",
+                  () => {
+                    window.document
+                      .querySelector(
+                        "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                      )
+                      .removeAttribute("active");
+                  },
+                  {
+                    once: true,
+                  }
+                );
+              return false;
+            } else return true;
+          });
+          if (updateStatus) {
+            let dl = 10000;
+            window.document.querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+            ).innerHTML =
+              '<div>No updates available!<div style="width: 100%; height: 1px; background: #fff; transform-origin: 0 0; margin-top: 2px"></div></div>';
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+              )
+              .setAttribute("active", "");
+            cntDelayMs = Date.now() + dl;
+            cntDelayCallBack = () => {
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                )
+                .removeAttribute("active");
+            };
+            cntDelayFollowCallBack = () => {
+              let progress = cntDelayMs - Date.now();
+              window.document.querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus div div"
+              ).style.transform = `scaleX(${progress / dl})`;
+              if (progress < dl / 3)
+                window.document.querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus div div"
+                ).style.background = "#f94b53";
+            };
+            cntDelayEnable = true;
+          }
+        } else {
+          let dl = 10000;
+          window.document.querySelector(
+            "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+          ).innerHTML =
+            '<div><a href="https:/' +
+            '/raw.githubusercontent.com/chuanghiten/CNT-User-Script/main/cntDigitalClockWidget/script.user.js" style="display: inline; color: #f94b53; font-weight: bold">Update check failed! Check manually now.</a><div style="width: 100%; height: 1px; background: #fff; transform-origin: 0 0; margin-top: 2px"></div></div>';
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+            )
+            .setAttribute("active", "");
+          cntDelayMs = Date.now() + dl;
+          cntDelayCallBack = () => {
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+              )
+              .removeAttribute("active");
+          };
+          cntDelayFollowCallBack = () => {
+            let progress = cntDelayMs - Date.now();
+            window.document.querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus div div"
+            ).style.transform = `scaleX(${progress / dl})`;
+            if (progress < dl / 3)
+              window.document.querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus div div"
+              ).style.background = "#f94b53";
+          };
+          cntDelayEnable = true;
+        }
+        updateChecking = false;
+        window.document
+          .querySelector(
+            "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span"
+          )
+          .removeAttribute("active");
+      },
+      checkUpdateClicked = () => {
+        if (!updateChecking) {
+          updateChecking = true;
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span"
+            )
+            .setAttribute("active", "");
+          checkForUpdate();
+        }
+      },
+      autoUpdateSwitchClicked = () => {
+        if (autoCheckUpdate) {
+          autoCheckUpdate = false;
+          cntUserData.write("cntAutoCheckUpdate", "0");
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+            )
+            .removeAttribute("active");
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul"
+            )
+            .setAttribute("active", "");
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
+            )
+            .addEventListener("click", checkUpdateClicked);
+        } else {
+          autoCheckUpdate = true;
+          cntUserData.write("cntAutoCheckUpdate", "1");
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+            )
+            .setAttribute("active", "");
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul"
+            )
+            .removeAttribute("active");
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
+            )
+            .removeEventListener("click", checkUpdateClicked);
+        }
+      },
       cntButtonMenuClicked = () => {
         if (!menuActive) {
           window.document
@@ -627,6 +815,17 @@
                 "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
               )
               .addEventListener("click", showAMPMClicked);
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+            )
+            .addEventListener("click", autoUpdateSwitchClicked);
+          if (!autoCheckUpdate)
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
+              )
+              .addEventListener("click", checkUpdateClicked);
         } else {
           window.document
             .querySelector(
@@ -669,6 +868,16 @@
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
             )
             .removeEventListener("click", showAMPMClicked);
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+            )
+            .removeEventListener("click", autoUpdateSwitchClicked);
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
+            )
+            .removeEventListener("click", checkUpdateClicked);
         }
         menuActive = !menuActive;
       },
@@ -732,9 +941,9 @@
       };
     cntTimeWidget.setAttribute("class", "Chua Nghi Ten Digital Clock Widget");
     cntStyle.innerHTML =
-      'html body .Chua.Nghi.Ten.Digital.Clock.Widget, html body .Chua.Nghi.Ten.Digital.Clock.Widget * {margin: 0; padding: 0; border: 0; box-sizing: border-box; position: relative; display: block; font-family: Roboto, Arial, sans-serif; font-size: 16px; line-height: 19px; user-select: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget span {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget {position: fixed; padding: 10px; z-index: 2147483647} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock {background: #0009; color: #fff; border-radius: 10px; padding: 6px 10px; box-shadow: 0 0 15px 0 #00000044; min-width: 20px; min-height: 20px; backdrop-filter: blur(5px)} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntButtonMenu {display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntButtonMenu span {cursor: pointer} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright]:hover .cntleftButtonMenu {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft]:hover .cntrightButtonMenu {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntSecondsProgress {position: absolute; top: 0; left: 0; width: 100%; height: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg {width: 100%; height: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path {fill: #0000; stroke-width: 2px; stroke: #fff} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path:first-child {stroke: #fff3} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu {position: absolute; background: #0009; border-radius: 10px; box-shadow: 0 0 15px 0 #00000044; backdrop-filter: blur(5px); border: 2px solid #fff; padding: 6px 10px; color: #fff; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] {display: block} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft][cnttop] + .cntMenu[active] {top: 100%; left: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright][cnttop] + .cntMenu[active] {top: 100%; right: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft][cntbottom] + .cntMenu[active] {bottom: 100%; left: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright][cntbottom] + .cntMenu[active] {bottom: 100%; right: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li {cursor: pointer; border-bottom: 1px solid #fff; white-space: nowrap; padding-bottom: 5px; margin-bottom: 5px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li:hover {background: #fff2} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li:last-child {border: 0; padding: 0; margin: 0} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover {width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover[active] {display: block; cursor: all-scroll} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText {white-space: nowrap} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul {margin: 5px 0 5px 20px; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul[active] {display: block} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span {display: flex; justify-content: space-between} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span span + span {margin-left: 50px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch {width: 35px; height: 20px; border: 2px solid #fff; border-radius: 10px; display: flex; justify-content: flex-start} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch[active] {justify-content: flex-end} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch:before, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch:before {content: ""; display: block; position: relative; width: 12px; height: 12px; border-radius: 50%; background: #fff; margin: 2px}';
+      '@keyframes scaleOut {0%, 12.5%, 50%, 62.5%, 100% {opacity: .25} 25%, 37.5%, 75%, 87.5% {opacity: 1}} html body .Chua.Nghi.Ten.Digital.Clock.Widget, html body .Chua.Nghi.Ten.Digital.Clock.Widget * {margin: 0; padding: 0; border: 0; box-sizing: border-box; position: relative; display: block; font-family: Roboto, Arial, sans-serif; font-size: 16px; line-height: 19px; user-select: none; white-space: nowrap} html body .Chua.Nghi.Ten.Digital.Clock.Widget span {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget a {color: #fff; text-decoration: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget {position: fixed; padding: 10px; z-index: 2147483647} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock {background: #0009; color: #fff; border-radius: 10px; padding: 6px 10px; box-shadow: 0 0 15px 0 #00000044; min-width: 20px; min-height: 20px; backdrop-filter: blur(5px)} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntButtonMenu {display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntButtonMenu span {cursor: pointer} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright]:hover .cntleftButtonMenu {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft]:hover .cntrightButtonMenu {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntSecondsProgress {position: absolute; top: 0; left: 0; width: 100%; height: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg {width: 100%; height: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path {fill: #0000; stroke-width: 2px; stroke: #fff} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path:first-child {stroke: #fff3} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus {position: absolute; background: #0009; border-radius: 10px; box-shadow: 0 0 15px 0 #00000044; backdrop-filter: blur(5px); border: 2px solid #fff; padding: 6px 10px; color: #fff; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus[active] {display: flex} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft] + .cntNotiStatus + .cntMenu[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft] + .cntNotiStatus[active] {left: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright] + .cntNotiStatus + .cntMenu[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright] + .cntNotiStatus[active] {right: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntbottom] + .cntNotiStatus[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntbottom] + .cntNotiStatus + .cntMenu[active] {bottom: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cnttop] + .cntNotiStatus[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cnttop] + .cntNotiStatus + .cntMenu[active] {top: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntbottom] + .cntNotiStatus[active] + .cntMenu[active] {bottom: 200%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cnttop] + .cntNotiStatus[active] + .cntMenu[active] {top: 200%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li {cursor: pointer; border-bottom: 1px solid #fff; padding-bottom: 5px; margin-bottom: 5px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li:hover {background: #fff2} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li:last-child {border: 0; padding: 0; margin: 0} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover {width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover[active] {display: block; cursor: all-scroll} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText {white-space: nowrap} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul {margin: 5px 0 5px 20px; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul[active] {display: block} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span {display: flex; justify-content: space-between} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span > span + span {margin-left: 50px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch {width: 35px; height: 20px; border: 2px solid #fff; border-radius: 10px; display: flex; justify-content: flex-start} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch[active] {justify-content: flex-end} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch:before, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch:before {content: ""; display: block; position: relative; width: 12px; height: 12px; border-radius: 50%; background: #fff; margin: 2px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span span {display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] ul li > span.cntUpdate + ul[active] li span span + span[active] span {display: inline; animation: scaleOut 1.5s linear .1s infinite} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] ul li > span.cntUpdate + ul[active] li span span + span[active] span:last-child {animation-delay: .2s} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] ul li > span.cntUpdate + ul[active] li span span + span[active] span:first-child {animation-delay: 0s}';
     cntTimeWidget.innerHTML =
-      '<div class="cntClock" cntleft cntright><div class="cntSecondsProgress"><svg><path stroke-linecap="round" stroke-linejoin="round"></path><path stroke-linecap="round" stroke-linejoin="round"></path></svg></div><span class="cntleftButtonMenu cntButtonMenu" title="Open or Close settings"><span>•••</span> | </span><span class="cntClockText"><span class="cntHours">88</span>:<span class="cntMinutes">88</span><span class="cntSeconds">:88</span><span class="cntAmPm"></span></span><span class="cntrightButtonMenu cntButtonMenu" title="Open or Close settings"> | <span>•••</span></span></div><div class="cntMenu"><ul><li class="cntMoveButton" title="Move to...">Move</li><li class="cntSecondsDropdown"><span><span title="Seconds settings">Seconds</span><span title="Expand / Collapse">•••</span></span><ul><li><span><span>Show Seconds</span><span class="cntShowSecondsSwitch cntSwitch" title="Disable / Enable"></span></span></li><li><span><span>Smooth Seconds Progress Bar</span><span class="cntSmoothSecondsSwitch cntSwitch" title="Disable / Enable"></span></span></li></ul></li><li class="cntShowAMPM"><span><span>12 - Hour time</span><span class="hour12Switch cntSwitch" title="Disable / Enable"></span></span><ul><li><span><span>Show AM / PM</span><span class="cntShowAMPMSwitch cntSwitch" title="Disable / Enable"></span></span></li></ul></li></ul></div><div class="cntBlockHover" title="Double click to set and exit"></div>';
+      '<div class="cntClock" cntleft cntright><div class="cntSecondsProgress"><svg><path stroke-linecap="round" stroke-linejoin="round"></path><path stroke-linecap="round" stroke-linejoin="round"></path></svg></div><span class="cntleftButtonMenu cntButtonMenu"><span title="Open or Close settings">•••</span> | </span><span class="cntClockText"><span class="cntHours">88</span>:<span class="cntMinutes">88</span><span class="cntSeconds">:88</span><span class="cntAmPm"></span></span><span class="cntrightButtonMenu cntButtonMenu"> | <span title="Open or Close settings">•••</span></span></div><div class="cntNotiStatus"></div><div class="cntMenu"><ul><li class="cntMoveButton" title="Move to...">Move</li><li class="cntSecondsDropdown"><span><span title="Seconds settings">Seconds</span><span title="Expand / Collapse">•••</span></span><ul><li><span><span>Show Seconds</span><span class="cntShowSecondsSwitch cntSwitch" title="Disable / Enable"></span></span></li><li><span><span>Smooth Seconds Progress Bar</span><span class="cntSmoothSecondsSwitch cntSwitch" title="Disable / Enable"></span></span></li></ul></li><li class="cntShowAMPM"><span><span>12 - Hour time</span><span class="hour12Switch cntSwitch" title="Disable / Enable"></span></span><ul><li><span><span>Show AM / PM</span><span class="cntShowAMPMSwitch cntSwitch" title="Disable / Enable"></span></span></li></ul></li><li><span class="cntUpdate"><span>Auto check update</span><span class="cntAutoUpdateSwitch cntSwitch" title="Disable / Enable"></span></span><ul><li><span><span>Check for Update</span><span><span>•</span><span>•</span><span>•</span></span></span></span></li></ul></li></ul></div><div class="cntBlockHover" title="Double click to set and exit"></div>';
     bodyElement.appendChild(cntTimeWidget);
     window.document.querySelector("html").appendChild(cntStyle);
     updateSeconds.size(
@@ -755,18 +964,18 @@
     window.document
       .querySelector("html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock")
       .addEventListener("mouseleave", mouseLeaveCntClock, { once: true });
-    if (cookie.read("cntHideSeconds") != "")
-      secondsHided = Number(cookie.read("cntHideSeconds"));
-    if (cookie.read("cntSmoothSeconds") != "")
-      smoothSeconds = Number(cookie.read("cntSmoothSeconds"));
+    if (cntUserData.read("cntHideSeconds") != null)
+      secondsHided = Number(cntUserData.read("cntHideSeconds"));
+    if (cntUserData.read("cntSmoothSeconds") != null)
+      smoothSeconds = Number(cntUserData.read("cntSmoothSeconds"));
     if (smoothSeconds)
       window.document
         .querySelector(
           "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
         )
         .setAttribute("active", "");
-    if (cookie.read("cnt12Hour") != "")
-      hour12 = Number(cookie.read("cnt12Hour"));
+    if (cntUserData.read("cnt12Hour") != null)
+      hour12 = Number(cntUserData.read("cnt12Hour"));
     if (hour12) {
       window.document
         .querySelector(
@@ -794,8 +1003,8 @@
           "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
         )
         .setAttribute("active", "");
-    if (cookie.read("cntShowAMPM") != "")
-      showAMPM = Number(cookie.read("cntShowAMPM"));
+    if (cntUserData.read("cntShowAMPM") != null)
+      showAMPM = Number(cntUserData.read("cntShowAMPM"));
     window.requestAnimationFrame(updateTimeWithFPS);
     if (showAMPM) {
       if (hours * 60 + minutes < 720)
@@ -821,11 +1030,40 @@
         )
         .removeAttribute("active");
     }
-    if (cookie.read("cntWidgetWidth") != "")
-      cntTimeOnWindowSize.width = Number(cookie.read("cntWidgetWidth"));
-    if (cookie.read("cntWidgetHeight") != "")
-      cntTimeOnWindowSize.height = Number(cookie.read("cntWidgetHeight"));
+    if (cntUserData.read("cntWidgetWidth") != null)
+      cntTimeOnWindowSize.width = Number(cntUserData.read("cntWidgetWidth"));
+    if (cntUserData.read("cntWidgetHeight") != null)
+      cntTimeOnWindowSize.height = Number(cntUserData.read("cntWidgetHeight"));
+    if (cntUserData.read("cntAutoCheckUpdate") != null)
+      autoCheckUpdate = Number(cntUserData.read("cntAutoCheckUpdate"));
+    if (autoCheckUpdate) {
+      window.document
+        .querySelector(
+          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+        )
+        .setAttribute("active", "");
+      window.document
+        .querySelector(
+          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul"
+        )
+        .removeAttribute("active");
+    } else {
+      window.document
+        .querySelector(
+          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+        )
+        .removeAttribute("active");
+      window.document
+        .querySelector(
+          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul"
+        )
+        .setAttribute("active", "");
+    }
     setViTriWidget(cntTimeOnWindowSize.width, cntTimeOnWindowSize.height);
     getViTriWidget(windowSize.width, windowSize.height);
+    if (autoCheckUpdate) {
+      checkForUpdate();
+      updateChecking = true;
+    }
   });
 })();
