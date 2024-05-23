@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Digital Clock Widget by Chua Nghi Ten
 // @namespace    http://tampermonkey.net/
-// @version      2024.05.19.15.49
+// @version      2024.05.23.17.36
 // @license      GNU GPLv3
 // @description  Provide a seemingly useless clock in the corner of the screen.
 // @author       Chua Nghi Ten
@@ -40,7 +40,7 @@
     const bodyElement = window.document.querySelector("html body"),
       cntTimeWidget = window.document.createElement("div"),
       cntStyle = window.document.createElement("style"),
-      currentVersion = "2024.05.19.15.49",
+      currentVersion = "2024.05.23.17.36",
       windowSize = {
         width: window.innerWidth,
         height: window.innerHeight,
