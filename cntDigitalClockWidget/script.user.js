@@ -527,7 +527,7 @@
         if (
           window.document
             .querySelector(
-              "body > div > div.cntMenu > ul > li:nth-child(4) > ul.cntUpdateSettings"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntUpdateSettings"
             )
             .getAttribute("active") != null
         ) {
@@ -543,7 +543,7 @@
         if (
           window.document
             .querySelector(
-              "body > div > div.cntMenu > ul > li:nth-child(4) > ul.cntCheckForUpdate > li > span"
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntCheckForUpdate > li > span"
             )
             .getAttribute("active") != null
         )
@@ -1957,7 +1957,7 @@
           if (
             window.document
               .querySelector(
-                "body > div > div.cntMenu > ul > li:nth-child(4) > ul.cntCheckForUpdate > li > span"
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntCheckForUpdate > li > span"
               )
               .getAttribute("active") != null
           )
@@ -1969,7 +1969,7 @@
           if (
             window.document
               .querySelector(
-                "body > div > div.cntMenu > ul > li:nth-child(4) > ul.cntUpdateSettings"
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntUpdateSettings"
               )
               .getAttribute("active") != null
           ) {
