@@ -15,6 +15,18 @@
 (() => {
   "use strict";
   window.addEventListener("load", () => {
+    window.document
+      .querySelector("html body")
+      .insertAdjacentHTML(
+        "beforeend",
+        '<div class="Chua Nghi Ten Digital Clock Widget"><div class="cntClock" cntleft cntright><div class="cntSecondsProgress"><svg><path stroke-linecap="round" stroke-linejoin="round"></path><path stroke-linecap="round" stroke-linejoin="round"></path></svg></div><span class="cntleftButtonMenu cntButtonMenu"><span title="Open or Close settings" class="cntCursorPointer">•••</span> | </span><span class="cntClockText"><span class="cntHours">88</span>:<span class="cntMinutes">88</span><span class="cntSeconds">:88</span><span class="cntAmPm"></span></span><span class="cntrightButtonMenu cntButtonMenu"> | <span title="Open or Close settings" class="cntCursorPointer">•••</span></span></div><div class="cntNotiStatus"></div><div class="cntMenu"><ul><li class="cntMoveButton cntCursorPointer" title="Move to...">Move</li><li class="cntSecondsDropdown"><span><span>Seconds settings</span><span title="Expand / Collapse" class="cntCursorPointer">•••</span></span><ul><li><span><span>Show seconds</span><span class="cntShowSecondsSwitch cntSwitch" title="Disable / Enable"></span></span></li><li><span><span>Alternating seconds progress bar</span><span class="alternatingSecondsSwitch cntSwitch" title="Disable / Enable"></span></span><ul><li class="secondsProgressStyle"><span><span>Seconds progress bar style</span><span><span><input type="radio" id="paintGradually" name="secondsProgressStyle"><label for="paintGradually">Paint gradually</label></span><span><input type="radio" id="eraseGradually" name="secondsProgressStyle"><label for="eraseGradually">Erase gradually</label></span></span></span></li></ul></li><li><span><span>Progress bar seconds counterclockwise</span><span class="secondsProgressCountDown cntSwitch" title="Disable / Enable"></span></span></li><li><span><span>Smooth seconds progress bar</span><span class="cntSmoothSecondsSwitch cntSwitch" title="Disable / Enable"></span></span></li></ul></li><li class="cntShowAMPM"><span><span>12 - Hour time</span><span class="cntHour12Switch cntSwitch" title="Disable / Enable"></span></span><ul><li><span><span>Show AM / PM</span><span class="cntShowAMPMSwitch cntSwitch" title="Disable / Enable"></span></span></li></ul></li><li><span class="cntUpdate"><span>Auto check update</span><span class="cntAutoUpdateSwitch cntSwitch" title="Disable / Enable"></span></span><ul class="cntCheckForUpdate"><li><span><span class="cntCursorPointer">Check for Update</span><span><span>•</span><span>•</span><span>•</span></span></span></span></li></ul><ul class="cntUpdateSettings"><li><span><span>Check for updates every time the page loads</span><span class="cntSwitch" title="Disable / Enable"></span></span></li><li><span><span>Check for updates every</span><select id="cntTimeUpdate" class="cntCursorPointer"><option>5 minutes</option><option>15 minutes</option><option>30 minutes</option><option>1 hour</option><option>2 hours</option></select></span></li></ul></li></ul></div><div class="cntBlockHover" title="Double click to set and exit"></div></div>'
+      );
+    window.document
+      .querySelector("html body")
+      .insertAdjacentHTML(
+        "afterend",
+        '<style>@keyframes scaleOut {0%, 12.5%, 50%, 62.5%, 100% {opacity: .25} 25%, 37.5%, 75%, 87.5% {opacity: 1}} html body .Chua.Nghi.Ten.Digital.Clock.Widget, html body .Chua.Nghi.Ten.Digital.Clock.Widget * {margin: 0; padding: 0; border: 0; box-sizing: border-box; position: relative; display: block; font-family: Roboto, Arial, sans-serif; font-size: 16px; line-height: 19px; user-select: none; white-space: nowrap} html body .Chua.Nghi.Ten.Digital.Clock.Widget span {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget a {color: #fff; text-decoration: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntCursorPointer, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntSwitch {cursor: pointer} html body .Chua.Nghi.Ten.Digital.Clock.Widget {position: fixed; padding: 10px; z-index: 2147483647} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock {background: #000000b5; color: #fff; border-radius: 10px; padding: 6px 10px; box-shadow: 0 4px 10px #00000080; min-width: 20px; min-height: 20px; backdrop-filter: blur(30px)} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntButtonMenu {display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright]:hover .cntleftButtonMenu {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft]:hover .cntrightButtonMenu {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntSecondsProgress {position: absolute; top: 0; left: 0; width: 100%; height: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg {width: 100%; height: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path {fill: #0000; stroke-width: 2px; stroke: #fff} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path:first-child {stroke: #fff3} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus {position: absolute; background: #0009; border-radius: 10px; box-shadow: 0 4px 10px #00000080; backdrop-filter: blur(5px); border: 2px solid #fff; padding: 6px 10px; color: #fff; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus[active] {display: flex} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft] + .cntNotiStatus + .cntMenu[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft] + .cntNotiStatus[active] {left: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright] + .cntNotiStatus + .cntMenu[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright] + .cntNotiStatus[active] {right: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntbottom] + .cntNotiStatus[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntbottom] + .cntNotiStatus + .cntMenu[active] {bottom: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cnttop] + .cntNotiStatus[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cnttop] + .cntNotiStatus + .cntMenu[active] {top: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntbottom] + .cntNotiStatus[active] + .cntMenu[active] {bottom: 200%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cnttop] + .cntNotiStatus[active] + .cntMenu[active] {top: 200%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li {border-bottom: 1px solid #fff4; padding-bottom: 5px; margin-bottom: 5px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li:hover {background: #fff2} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li:last-child {border: 0; padding: 0; margin: 0} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover {width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover[active] {display: block; cursor: all-scroll} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText {white-space: nowrap} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul {margin: 4px 0 4px 20px; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul[active] {display: block} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span {display: flex; justify-content: space-between; align-items: center} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span > span + span {margin-left: 50px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch {width: 35px; height: 20px; border: 2px solid #fff; border-radius: 10px; display: flex; justify-content: flex-start} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch[active] {justify-content: flex-end} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch:before, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch:before {content: ""; display: block; position: relative; width: 12px; height: 12px; border-radius: 50%; background: #fff; margin: 2px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span span {display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] ul li > span.cntUpdate + ul[active] li span span + span[active] span {display: inline; animation: scaleOut 1.5s linear .1s infinite} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] ul li > span.cntUpdate + ul[active] li span span + span[active] span:last-child {animation-delay: .2s} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] ul li > span.cntUpdate + ul[active] li span span + span[active] span:first-child {animation-delay: 0s} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select {background-color: #fff0; border: 1px solid #fff9; border-radius: 5px; color: #fff; outline: none; margin: 0 0 0 50px; padding: 3px 5px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select:focus-visible {border-color: #fff} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select option {color: #333} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li + li > span > span {display: flex; align-items: center} html body div.Chua.Nghi.Ten.Digital.Clock.Widget div.cntMenu li.secondsProgressStyle span span + span span {display: flex} html body div.Chua.Nghi.Ten.Digital.Clock.Widget div.cntMenu li.secondsProgressStyle span span + span span input {margin-right: 5px} html body div.Chua.Nghi.Ten.Digital.Clock.Widget div.cntMenu li.secondsProgressStyle span span + span span:first-child {margin-bottom: 5px} html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > span > span:nth-child(1) > input[type=text] {display: inline; background: #0000; outline: none; color: #fff; text-align: right; text-decoration: underline}</style>'
+      );
     let cfr = 0,
       time = 0,
       seconds = 0,
@@ -36,10 +48,13 @@
       cntDelayCallBack = () => {},
       cntDelayFollowCallBack = () => {},
       updateEveryPageLoads = false,
-      cntCheckUpdateAfter = 1;
-    const bodyElement = window.document.querySelector("html body"),
-      cntTimeWidget = window.document.createElement("div"),
-      cntStyle = window.document.createElement("style"),
+      cntCheckUpdateAfter = 1,
+      alternatingSeconds = true,
+      paintGradually = true,
+      secondsProgressCountDown = false;
+    const cntTimeWidget = window.document.querySelector(
+        "html body div.Chua.Nghi.Ten.Digital.Clock.Widget"
+      ),
       currentVersion = "2024.05.23.17.36",
       windowSize = {
         width: window.innerWidth,
@@ -92,17 +107,79 @@
             )
             .getTotalLength()}px`;
         },
-        seconds: (s) => {
-          window.document.querySelector(
-            "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
-          ).style.strokeDashoffset = `${
-            (1 - s) *
-            window.document
-              .querySelector(
+        seconds: (s, eo) => {
+          if (alternatingSeconds) {
+            if (secondsProgressCountDown)
+              window.document.querySelector(
                 "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
-              )
-              .getTotalLength()
-          }px`;
+              ).style.strokeDashoffset = `${
+                ((eo % 2) + s) *
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                  )
+                  .getTotalLength()
+              }px`;
+            else
+              window.document.querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+              ).style.strokeDashoffset = `${
+                ((eo % 2) - s) *
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                  )
+                  .getTotalLength()
+              }px`;
+          } else {
+            if (secondsProgressCountDown) {
+              if (paintGradually)
+                window.document.querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                ).style.strokeDashoffset = `${
+                  (1 + s) *
+                  window.document
+                    .querySelector(
+                      "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                    )
+                    .getTotalLength()
+                }px`;
+              else
+                window.document.querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                ).style.strokeDashoffset = `${
+                  (2 + s) *
+                  window.document
+                    .querySelector(
+                      "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                    )
+                    .getTotalLength()
+                }px`;
+            } else {
+              if (paintGradually)
+                window.document.querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                ).style.strokeDashoffset = `${
+                  (1 - s) *
+                  window.document
+                    .querySelector(
+                      "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                    )
+                    .getTotalLength()
+                }px`;
+              else
+                window.document.querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                ).style.strokeDashoffset = `${
+                  (2 - s) *
+                  window.document
+                    .querySelector(
+                      "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path + path"
+                    )
+                    .getTotalLength()
+                }px`;
+            }
+          }
         },
       }),
       getViTriWidget = (wWidth, wHeight) => {
@@ -227,7 +304,7 @@
                   "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntSeconds"
                 ).innerHTML = `:${seconds}`;
             }
-            if (!smoothSeconds) updateSeconds.seconds(time.getSeconds() / 60);
+            if (!smoothSeconds) updateSeconds.seconds(seconds / 60, minutes);
             updateSeconds.size(
               window.document
                 .querySelector(
@@ -277,7 +354,8 @@
         } else ++cfr;
         if (smoothSeconds)
           updateSeconds.seconds(
-            (time.getSeconds() + time.getMilliseconds() / 999) / 60
+            (time.getSeconds() + time.getMilliseconds() / 999) / 60,
+            time.getMinutes()
           );
         if (cntDelayEnable) cntDelay();
         window.requestAnimationFrame(updateTimeWithFPS);
@@ -356,100 +434,150 @@
         if (widgetMove) {
           e.preventDefault();
           widgetMove = false;
-          getViTriWidget(windowSize.width, windowSize.height);
-          cntUserData.write("cntWidgetWidth", cntTimeOnWindowSize.width);
-          cntUserData.write("cntWidgetHeight", cntTimeOnWindowSize.height);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover"
-            )
-            .removeAttribute("active");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntMoveButton"
-            )
-            .removeEventListener("click", cntMoveButtonClicked);
           window.document.removeEventListener(
             "mousemove",
             mouseMoveOnDocumentEvent
           );
+          getViTriWidget(windowSize.width, windowSize.height);
+          cntUserData.write("cntWidgetWidth", cntTimeOnWindowSize.width);
+          cntUserData.write("cntWidgetHeight", cntTimeOnWindowSize.height);
+          if (
+            window.document.querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover"
+            ) != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover"
+              )
+              .removeAttribute("active");
+        }
+      },
+      cntMoveButtonClicked = () => {
+        widgetMove = true;
+        window.document.addEventListener("mousemove", mouseMoveOnDocumentEvent);
+
+        window.document
+          .querySelector(
+            "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > span"
+          )
+          .removeEventListener("click", cntSecondDropdownClicked);
+        if (
+          window.document
+            .querySelector(
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul"
+            )
+            .getAttribute("active") != null
+        ) {
+          window.document
+            .querySelector(
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+            )
+            .removeEventListener("click", cntShowSecondsClicked);
+          window.document
+            .querySelector(
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+            )
+            .removeEventListener("click", alternatingSecondsClicked);
+          if (
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+              )
+              .getAttribute("active") != null
+          )
+            document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul > li > span > span:nth-child(2)"
+              )
+              .removeEventListener("click", progressStyleClicked);
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+            )
+            .removeEventListener("click", secondsProgressCountDownClicked);
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+            )
+            .removeEventListener("click", cntSmoothSecondsClicked);
+        }
+        window.document
+          .querySelector(
+            "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > span > span.cntHour12Switch.cntSwitch"
+          )
+          .removeEventListener("click", hour12SwitchClicked);
+        if (
+          document
+            .querySelector(
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul"
+            )
+            .getAttribute("active") != null
+        )
+          window.document
+            .querySelector(
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
+            )
+            .removeEventListener("click", showAMPMClicked);
+        window.document
+          .querySelector(
+            "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > span > span.cntAutoUpdateSwitch.cntSwitch"
+          )
+          .removeEventListener("click", autoUpdateSwitchClicked);
+        if (
+          window.document
+            .querySelector(
+              "body > div > div.cntMenu > ul > li:nth-child(4) > ul.cntUpdateSettings"
+            )
+            .getAttribute("active") != null
+        ) {
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntUpdateSettings > li:nth-child(1) > span > span.cntSwitch"
+            )
+            .removeEventListener("click", updateEveryPageLoadsClicked);
+          window.document
+            .querySelector("#cntTimeUpdate")
+            .removeEventListener("click", cntCheckUpdateAfterSelected);
+        }
+        if (
+          window.document
+            .querySelector(
+              "body > div > div.cntMenu > ul > li:nth-child(4) > ul.cntCheckForUpdate > li > span"
+            )
+            .getAttribute("active") != null
+        )
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntCheckForUpdate > li > span"
+            )
+            .removeEventListener("click", checkUpdateClicked);
+
+        if (
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu"
+            )
+            .getAttribute("active") != null
+        )
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu"
             )
             .removeAttribute("active");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntMoveButton"
-            )
-            .removeEventListener("click", cntMoveButtonClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown span"
-            )
-            .removeEventListener("click", cntSecondDropdownClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
-            )
-            .removeEventListener("click", cntShowSecondsClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
-            )
-            .removeEventListener("click", cntSmoothSecondsClicked);
-          if (
-            window.document.querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul"
-            ).attributes.length == 1
-          )
-            cntSecondDropdownClicked();
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
-            )
-            .removeEventListener("click", hour12SwitchClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
-            )
-            .removeEventListener("click", showAMPMClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
-            )
-            .removeEventListener("click", autoUpdateSwitchClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
-            )
-            .removeEventListener("click", checkUpdateClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
-            )
-            .removeEventListener("click", updateEveryPageLoadsClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select"
-            )
-            .removeEventListener("click", cntCheckUpdateAfterSelected);
-        }
-      },
-      cntMoveButtonClicked = () => {
-        widgetMove = true;
-        window.document
-          .querySelector(
-            "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu"
-          )
-          .removeAttribute("active");
-        window.document
-          .querySelector(
-            "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover"
-          )
-          .setAttribute("active", "");
         menuActive = false;
-        window.document.addEventListener("mousemove", mouseMoveOnDocumentEvent);
+        if (
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover"
+            )
+            .getAttribute("active") != ""
+        )
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover"
+            )
+            .setAttribute("active", "");
         window.document
           .querySelector(
             "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover"
@@ -462,22 +590,39 @@
           window.document.querySelector(
             "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntSeconds"
           ).style.display = "none";
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
-            )
-            .removeAttribute("active");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
+              )
+              .removeAttribute("active");
         } else {
           cntUserData.write("cntHideSeconds", "0");
           window.document.querySelector(
             "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntSeconds"
           ).style.display = "inline";
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
-            )
-            .setAttribute("active", "");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
+              )
+              .setAttribute("active", "");
         }
+        window.document.querySelector(
+          "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntClock > span.cntClockText > span.cntSeconds"
+        ).innerHTML = `:${seconds}`;
         updateSeconds.size(
           window.document
             .querySelector(
@@ -494,82 +639,380 @@
       },
       cntSmoothSecondsClicked = () => {
         if (smoothSeconds) {
-          smoothSeconds = false;
           cntUserData.write("cntSmoothSeconds", "0");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
-            )
-            .removeAttribute("active");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
+              )
+              .removeAttribute("active");
         } else {
-          smoothSeconds = true;
           cntUserData.write("cntSmoothSeconds", "1");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
+              )
+              .setAttribute("active", "");
+        }
+        smoothSeconds = !smoothSeconds;
+      },
+      progressStyleClicked = () => {
+        if (
+          paintGradually !=
+          window.document.querySelector("#paintGradually").checked
+        ) {
+          paintGradually = !paintGradually;
+          if (paintGradually) cntUserData.write("cntPaintGradually", "1");
+          else cntUserData.write("cntPaintGradually", "0");
+        }
+      },
+      alternatingSecondsClicked = () => {
+        if (alternatingSeconds) {
+          cntUserData.write("cntAlternatingSeconds", "0");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch.alternatingSecondsSwitch"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch.alternatingSecondsSwitch"
+              )
+              .removeAttribute("active");
+          if (
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+              )
+              .setAttribute("active", "");
+          if (paintGradually)
+            window.document.querySelector("#paintGradually").checked = true;
+          else window.document.querySelector("#eraseGradually").checked = true;
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul > li > span > span:nth-child(2)"
             )
-            .setAttribute("active", "");
+            .addEventListener("click", progressStyleClicked);
+        } else {
+          cntUserData.write("cntAlternatingSeconds", "1");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch.alternatingSecondsSwitch"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch.alternatingSecondsSwitch"
+              )
+              .setAttribute("active", "");
+          if (
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+              )
+              .removeAttribute("active");
+          window.document
+            .querySelector(
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul > li > span > span:nth-child(2)"
+            )
+            .removeEventListener("click", progressStyleClicked);
         }
+        alternatingSeconds = !alternatingSeconds;
       },
       cntSecondDropdownClicked = () => {
         if (
-          window.document.querySelector(
-            "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul"
-          ).attributes.length == 1
-        ) {
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul"
             )
-            .removeAttribute("active");
+            .getAttribute("active") != null
+        ) {
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
             )
             .removeEventListener("click", cntShowSecondsClicked);
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+            )
+            .removeEventListener("click", alternatingSecondsClicked);
+          if (
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul > li > span > span:nth-child(2)"
+              )
+              .removeEventListener("click", progressStyleClicked);
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
             )
             .removeEventListener("click", cntSmoothSecondsClicked);
-        } else {
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul"
+              )
+              .removeAttribute("active");
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul"
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
             )
-            .setAttribute("active", "");
+            .removeEventListener("click", secondsProgressCountDownClicked);
+        } else {
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul"
+              )
+              .setAttribute("active", "");
+          if (secondsHided) {
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+                )
+                .getAttribute("ative") != null
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+                )
+                .removeAttribute("active");
+          } else {
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+                )
+                .getAttribute("ative") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+                )
+                .setAttribute("active", "");
+          }
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
             )
             .addEventListener("click", cntShowSecondsClicked);
+          if (alternatingSeconds) {
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+                )
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+                )
+                .setAttribute("active", "");
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul > li > span > span:nth-child(2)"
+              )
+              .removeEventListener("click", progressStyleClicked);
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+                )
+                .removeAttribute("active");
+          } else {
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+                )
+                .removeAttribute("active");
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+                )
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+                )
+                .setAttribute("active", "");
+            if (paintGradually)
+              window.document.querySelector("#paintGradually").checked = true;
+            else
+              window.document.querySelector("#eraseGradually").checked = true;
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul > li > span > span:nth-child(2)"
+              )
+              .addEventListener("click", progressStyleClicked);
+          }
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+            )
+            .addEventListener("click", alternatingSecondsClicked);
+          if (smoothSeconds) {
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+                )
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+                )
+                .setAttribute("active", "");
+          } else {
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+                )
+                .removeAttribute("active");
+          }
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
             )
             .addEventListener("click", cntSmoothSecondsClicked);
+          if (secondsProgressCountDown) {
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+                )
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+                )
+                .setAttribute("active", "");
+          } else {
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+                )
+                .removeAttribute("active");
+          }
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+            )
+            .addEventListener("click", secondsProgressCountDownClicked);
         }
       },
       showAMPMClicked = () => {
         if (showAMPM) {
-          showAMPM = false;
           cntUserData.write("cntShowAMPM", "0");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
-            )
-            .removeAttribute("active");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
+              )
+              .removeAttribute("active");
           window.document.querySelector(
             "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntAmPm"
           ).style.display = "none";
         } else {
-          showAMPM = true;
           cntUserData.write("cntShowAMPM", "1");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
-            )
-            .setAttribute("active", "");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
+              )
+              .setAttribute("active", "");
           window.document.querySelector(
             "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntAmPm"
           ).style.display = "inline";
@@ -582,6 +1025,7 @@
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntAmPm"
             ).innerHTML = " PM";
         }
+        showAMPM = !showAMPM;
         updateSeconds.size(
           window.document
             .querySelector(
@@ -597,36 +1041,55 @@
       },
       hour12SwitchClicked = () => {
         if (hour12) {
-          hour12 = false;
           cntUserData.write("cnt12Hour", "0");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
-            )
-            .removeAttribute("active");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
+              )
+              .removeAttribute("active");
           window.document.querySelector(
             "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntHours"
           ).innerHTML = hours;
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntShowAMPM ul"
-            )
-            .removeAttribute("active");
-          window.document
-            .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
             )
             .removeEventListener("click", showAMPMClicked);
-          if (!showAMPM) showAMPM = !showAMPM;
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntShowAMPM ul"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntShowAMPM ul"
+              )
+              .removeAttribute("active");
+          showAMPM = true;
           showAMPMClicked();
         } else {
-          hour12 = true;
           cntUserData.write("cnt12Hour", "1");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
-            )
-            .setAttribute("active", "");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
+              )
+              .setAttribute("active", "");
           if (hours <= 12)
             window.document.querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntHours"
@@ -635,21 +1098,27 @@
             window.document.querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntHours"
             ).innerHTML = hours - 12;
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntShowAMPM ul"
-            )
-            .setAttribute("active", "");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntShowAMPM ul"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntShowAMPM ul"
+              )
+              .setAttribute("active", "");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
             )
             .addEventListener("click", showAMPMClicked);
-          if (showAMPM) {
-            showAMPM = !showAMPM;
-            showAMPMClicked();
-          }
+          showAMPM = false;
+          showAMPMClicked();
         }
+        hour12 = !hour12;
         updateSeconds.size(
           window.document
             .querySelector(
@@ -665,7 +1134,8 @@
       },
       checkForUpdate = async () => {
         const data = await fetch(
-          "https://raw.githubusercontent.com/chuanghiten/CNT-User-Script/main/cntDigitalClockWidget/version.json"
+          "https:/" +
+            "/raw.githubusercontent.com/chuanghiten/CNT-User-Script/main/cntDigitalClockWidget/version.json"
         )
           .then((v) => {
             if (v.status == 200 || v.status == 304) return v.json();
@@ -675,7 +1145,6 @@
             console.log(e);
             return false;
           });
-        // console.log(data.version);
         if (data) {
           const currentVersionArray = currentVersion.split("."),
             newVersionArray = data.version.split(".");
@@ -686,11 +1155,18 @@
               ).innerHTML =
                 '<span><a href="https:/' +
                 '/raw.githubusercontent.com/chuanghiten/CNT-User-Script/main/cntDigitalClockWidget/script.user.js">A new update is available. Check it now !!!</a></span><span title="Close" style="margin-left: 50px;">[ <span style="color: #f94b53; cursor: pointer;">X</span> ]</span>';
-              window.document
-                .querySelector(
-                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
-                )
-                .setAttribute("active", "");
+              if (
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                  )
+                  .getAttribute("active") != ""
+              )
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                  )
+                  .setAttribute("active", "");
               window.document
                 .querySelector(
                   "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus span + span span"
@@ -698,11 +1174,18 @@
                 .addEventListener(
                   "click",
                   () => {
-                    window.document
-                      .querySelector(
-                        "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
-                      )
-                      .removeAttribute("active");
+                    if (
+                      window.document
+                        .querySelector(
+                          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                        )
+                        .getAttribute("active") != null
+                    )
+                      window.document
+                        .querySelector(
+                          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                        )
+                        .removeAttribute("active");
                   },
                   {
                     once: true,
@@ -717,18 +1200,32 @@
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
             ).innerHTML =
               '<div>No updates available!<div style="width: 100%; height: 1px; background: #fff; transform-origin: 0 0; margin-top: 2px"></div></div>';
-            window.document
-              .querySelector(
-                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
-              )
-              .setAttribute("active", "");
-            cntDelayMs = Date.now() + dl;
-            cntDelayCallBack = () => {
+            if (
               window.document
                 .querySelector(
                   "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
                 )
-                .removeAttribute("active");
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                )
+                .setAttribute("active", "");
+            cntDelayMs = Date.now() + dl;
+            cntDelayCallBack = () => {
+              if (
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                  )
+                  .getAttribute("active") != null
+              )
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                  )
+                  .removeAttribute("active");
             };
             cntDelayFollowCallBack = () => {
               let progress = cntDelayMs - Date.now();
@@ -749,18 +1246,32 @@
           ).innerHTML =
             '<div><a href="https:/' +
             '/raw.githubusercontent.com/chuanghiten/CNT-User-Script/main/cntDigitalClockWidget/script.user.js" style="display: inline; color: #f94b53; font-weight: bold">Update check failed! Check manually now.</a><div style="width: 100%; height: 1px; background: #fff; transform-origin: 0 0; margin-top: 2px"></div></div>';
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
-            )
-            .setAttribute("active", "");
-          cntDelayMs = Date.now() + dl;
-          cntDelayCallBack = () => {
+          if (
             window.document
               .querySelector(
                 "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
               )
-              .removeAttribute("active");
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+              )
+              .setAttribute("active", "");
+          cntDelayMs = Date.now() + dl;
+          cntDelayCallBack = () => {
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus"
+                )
+                .removeAttribute("active");
           };
           cntDelayFollowCallBack = () => {
             let progress = cntDelayMs - Date.now();
@@ -775,19 +1286,33 @@
           cntDelayEnable = true;
         }
         updateChecking = false;
-        window.document
-          .querySelector(
-            "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span"
-          )
-          .removeAttribute("active");
-      },
-      checkUpdateClicked = () => {
-        if (!updateChecking) {
+        if (
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span"
             )
-            .setAttribute("active", "");
+            .getAttribute("active") != null
+        )
+          window.document
+            .querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span"
+            )
+            .removeAttribute("active");
+      },
+      checkUpdateClicked = () => {
+        if (!updateChecking) {
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span"
+              )
+              .setAttribute("active", "");
           updateChecking = true;
           checkForUpdate();
         }
@@ -807,34 +1332,53 @@
       },
       updateEveryPageLoadsClicked = () => {
         if (updateEveryPageLoads) {
-          updateEveryPageLoads = false;
           cntUserData.write("updateEveryPageLoads", "0");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
-            )
-            .removeAttribute("active");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
+              )
+              .removeAttribute("active");
         } else {
-          updateEveryPageLoads = true;
           cntUserData.write("updateEveryPageLoads", "1");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
-            )
-            .setAttribute("active", "");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
+              )
+              .setAttribute("active", "");
           updateChecking = true;
           checkForUpdate();
         }
+        updateEveryPageLoads = !updateEveryPageLoads;
       },
       autoUpdateSwitchClicked = () => {
         if (autoCheckUpdate) {
-          autoCheckUpdate = false;
           cntUserData.write("cntAutoCheckUpdate", "0");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
-            )
-            .removeAttribute("active");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+              )
+              .removeAttribute("active");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
@@ -845,39 +1389,71 @@
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select"
             )
             .removeEventListener("click", cntCheckUpdateAfterSelected);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
-            )
-            .removeAttribute("active");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
-            )
-            .setAttribute("active", "");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
+              )
+              .removeAttribute("active");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
+              )
+              .setAttribute("active", "");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
             )
             .addEventListener("click", checkUpdateClicked);
         } else {
-          autoCheckUpdate = true;
           cntUserData.write("cntAutoCheckUpdate", "1");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+              )
+              .setAttribute("active", "");
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
             )
-            .setAttribute("active", "");
+            .removeEventListener("click", checkUpdateClicked);
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
             )
             .removeAttribute("active");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
-            )
-            .setAttribute("active", "");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
+              )
+              .setAttribute("active", "");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
@@ -888,126 +1464,536 @@
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select"
             )
             .addEventListener("click", cntCheckUpdateAfterSelected);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
-            )
-            .removeEventListener("click", checkUpdateClicked);
         }
+        autoCheckUpdate = !autoCheckUpdate;
       },
       cntButtonMenuClicked = () => {
         if (!menuActive) {
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu"
-            )
-            .setAttribute("active", "");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu"
+              )
+              .setAttribute("active", "");
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntMoveButton"
             )
-            .addEventListener("click", cntMoveButtonClicked);
+            .addEventListener("click", cntMoveButtonClicked, { once: true });
           window.document
             .querySelector(
               "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown span"
             )
             .addEventListener("click", cntSecondDropdownClicked);
+          if (
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul"
+              )
+              .getAttribute("active") != null
+          ) {
+            if (secondsHided) {
+              if (
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+                  )
+                  .getAttribute("active") != null
+              )
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+                  )
+                  .removeAttribute("active");
+            } else {
+              if (
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+                  )
+                  .getAttribute("active") != ""
+              )
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+                  )
+                  .setAttribute("active", "");
+            }
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+              )
+              .addEventListener("click", cntShowSecondsClicked);
+            if (alternatingSeconds) {
+              if (
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+                  )
+                  .getAttribute("active") != ""
+              )
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+                  )
+                  .setAttribute("active", "");
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul > li > span > span:nth-child(2)"
+                )
+                .removeEventListener("click", progressStyleClicked);
+              if (
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+                  )
+                  .getAttribute("active") != null
+              )
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+                  )
+                  .removeAttribute("active");
+            } else {
+              if (
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+                  )
+                  .getAttribute("active") != null
+              )
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+                  )
+                  .removeAttribute("active");
+              if (
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+                  )
+                  .getAttribute("active") != ""
+              )
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+                  )
+                  .setAttribute("active", "");
+              if (paintGradually)
+                window.document.querySelector("#paintGradually").checked = true;
+              else
+                window.document.querySelector("#eraseGradually").checked = true;
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul > li > span > span:nth-child(2)"
+                )
+                .addEventListener("click", progressStyleClicked);
+            }
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+              )
+              .addEventListener("click", alternatingSecondsClicked);
+            if (secondsProgressCountDown) {
+              if (
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+                  )
+                  .getAttribute("active") != ""
+              )
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+                  )
+                  .setAttribute("active", "");
+            } else {
+              if (
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+                  )
+                  .getAttribute("active") != null
+              )
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+                  )
+                  .removeAttribute("active");
+            }
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+              )
+              .addEventListener("click", secondsProgressCountDownClicked);
+            if (smoothSeconds) {
+              if (
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+                  )
+                  .getAttribute("active") != ""
+              )
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+                  )
+                  .setAttribute("active", "");
+            } else {
+              if (
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+                  )
+                  .getAttribute("active") != null
+              )
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+                  )
+                  .removeAttribute("active");
+            }
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+              )
+              .addEventListener("click", cntSmoothSecondsClicked);
+          }
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > span > span.cntHour12Switch.cntSwitch"
             )
             .addEventListener("click", hour12SwitchClicked);
-          if (hour12)
+          if (hour12) {
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > span > span.cntHour12Switch.cntSwitch"
+                )
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > span > span.cntHour12Switch.cntSwitch"
+                )
+                .setAttribute("active", "");
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul"
+                )
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul"
+                )
+                .setAttribute("active", "");
+            if (showAMPM) {
+              if (
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
+                  )
+                  .getAttribute("avtive") != ""
+              )
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
+                  )
+                  .setAttribute("active", "");
+            } else {
+              if (
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
+                  )
+                  .getAttribute("avtive") != null
+              )
+                window.document
+                  .querySelector(
+                    "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
+                  )
+                  .removeAttribute("active");
+            }
             window.document
               .querySelector(
-                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
               )
               .addEventListener("click", showAMPMClicked);
+          } else {
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > span > span.cntHour12Switch.cntSwitch"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > span > span.cntHour12Switch.cntSwitch"
+                )
+                .removeAttribute("active");
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
+              )
+              .removeEventListener("click", showAMPMClicked);
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
+                )
+                .getAttribute("avtive") != null
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
+                )
+                .removeAttribute("active");
+          }
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > span > span.cntAutoUpdateSwitch.cntSwitch"
             )
             .addEventListener("click", autoUpdateSwitchClicked);
-          if (!autoCheckUpdate)
-            window.document
-              .querySelector(
-                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
+          if (autoCheckUpdate) {
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+                )
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+                )
+                .setAttribute("active", "");
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
+                )
+                .removeAttribute("active");
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
+                )
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
+                )
+                .setAttribute("active", "");
+            if (updateEveryPageLoads) {
+              if (
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
+                  )
+                  .getAttribute("active") != ""
               )
-              .addEventListener("click", checkUpdateClicked);
-          else {
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
+                  )
+                  .setAttribute("active", "");
+            } else {
+              if (
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
+                  )
+                  .getAttribute("active") != null
+              )
+                window.document
+                  .querySelector(
+                    "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
+                  )
+                  .removeAttribute("active");
+            }
             window.document
               .querySelector(
-                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntUpdateSettings > li:nth-child(1) > span > span.cntSwitch"
               )
               .addEventListener("click", updateEveryPageLoadsClicked);
+            window.document.querySelector(
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select"
+            ).selectedIndex = cntCheckUpdateAfter;
+            window.document
+              .querySelector("#cntTimeUpdate")
+              .addEventListener("click", cntCheckUpdateAfterSelected);
+          } else {
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+                )
+                .removeAttribute("active");
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
+                )
+                .removeAttribute("active");
+            if (
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
+                )
+                .getAttribute("active") != ""
+            )
+              window.document
+                .querySelector(
+                  "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
+                )
+                .setAttribute("active", "");
             window.document
               .querySelector(
-                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select"
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntCheckForUpdate > li > span"
               )
-              .addEventListener("click", cntCheckUpdateAfterSelected);
+              .addEventListener("click", checkUpdateClicked);
           }
         } else {
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu"
-            )
-            .removeAttribute("active");
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntMoveButton"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntMoveButton"
             )
             .removeEventListener("click", cntMoveButtonClicked);
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown span"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > span"
             )
             .removeEventListener("click", cntSecondDropdownClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
-            )
-            .removeEventListener("click", cntShowSecondsClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
-            )
-            .removeEventListener("click", cntSmoothSecondsClicked);
           if (
-            window.document.querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul"
-            ).attributes.length == 1
-          )
-            cntSecondDropdownClicked();
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul"
+              )
+              .getAttribute("active") != null
+          ) {
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(1) > span > span.cntShowSecondsSwitch.cntSwitch"
+              )
+              .removeEventListener("click", cntShowSecondsClicked);
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > span > span.alternatingSecondsSwitch.cntSwitch"
+              )
+              .removeEventListener("click", alternatingSecondsClicked);
+            if (
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul"
+                )
+                .getAttribute("active") != null
+            )
+              window.document
+                .querySelector(
+                  "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(2) > ul > li > span > span:nth-child(2)"
+                )
+                .removeEventListener("click", progressStyleClicked);
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+              )
+              .removeEventListener("click", secondsProgressCountDownClicked);
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(4) > span > span.cntSmoothSecondsSwitch.cntSwitch"
+              )
+              .removeEventListener("click", cntSmoothSecondsClicked);
+          }
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
+              "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > span > span.cntHour12Switch.cntSwitch"
             )
             .removeEventListener("click", hour12SwitchClicked);
+          if (
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body div.Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntShowAMPM > ul > li > span > span.cntShowAMPMSwitch.cntSwitch"
+              )
+              .removeEventListener("click", showAMPMClicked);
           window.document
             .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
-            )
-            .removeEventListener("click", showAMPMClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
+              "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > span > span.cntAutoUpdateSwitch.cntSwitch"
             )
             .removeEventListener("click", autoUpdateSwitchClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li > span"
-            )
-            .removeEventListener("click", checkUpdateClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
-            )
-            .removeEventListener("click", updateEveryPageLoadsClicked);
-          window.document
-            .querySelector(
-              "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select"
-            )
-            .removeEventListener("click", cntCheckUpdateAfterSelected);
+          if (
+            window.document
+              .querySelector(
+                "body > div > div.cntMenu > ul > li:nth-child(4) > ul.cntCheckForUpdate > li > span"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntCheckForUpdate > li > span"
+              )
+              .removeEventListener("click", checkUpdateClicked);
+          if (
+            window.document
+              .querySelector(
+                "body > div > div.cntMenu > ul > li:nth-child(4) > ul.cntUpdateSettings"
+              )
+              .getAttribute("active") != null
+          ) {
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li:nth-child(4) > ul.cntUpdateSettings > li:nth-child(1) > span > span.cntSwitch"
+              )
+              .removeEventListener("click", updateEveryPageLoadsClicked);
+            window.document
+              .querySelector("#cntTimeUpdate")
+              .removeEventListener("click", cntCheckUpdateAfterSelected);
+          }
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu"
+              )
+              .removeAttribute("active");
         }
         menuActive = !menuActive;
       },
@@ -1025,7 +2011,8 @@
             .getBoundingClientRect().height
         );
         updateSeconds.seconds(
-          (time.getSeconds() + time.getMilliseconds() / 999) / 60
+          (time.getSeconds() + time.getMilliseconds() / 999) / 60,
+          time.getMinutes()
         );
         window.document
           .querySelector(
@@ -1054,7 +2041,8 @@
             .getBoundingClientRect().height
         );
         updateSeconds.seconds(
-          (time.getSeconds() + time.getMilliseconds() / 999) / 60
+          (time.getSeconds() + time.getMilliseconds() / 999) / 60,
+          time.getMinutes()
         );
         window.document
           .querySelector(
@@ -1068,71 +2056,52 @@
           .forEach((c) => {
             c.removeEventListener("click", cntButtonMenuClicked);
           });
+      },
+      secondsProgressCountDownClicked = () => {
+        if (secondsProgressCountDown) {
+          cntUserData.write("cntSecondsProgressCountDown", "0");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+              )
+              .getAttribute("active") != null
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+              )
+              .removeAttribute("active");
+        } else {
+          cntUserData.write("cntSecondsProgressCountDown", "1");
+          if (
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+              )
+              .getAttribute("active") != ""
+          )
+            window.document
+              .querySelector(
+                "html body .Chua.Nghi.Ten.Digital.Clock.Widget > div.cntMenu > ul > li.cntSecondsDropdown > ul > li:nth-child(3) > span > span.secondsProgressCountDown.cntSwitch"
+              )
+              .setAttribute("active", "");
+        }
+        secondsProgressCountDown = !secondsProgressCountDown;
       };
-    cntTimeWidget.setAttribute("class", "Chua Nghi Ten Digital Clock Widget");
-    cntStyle.innerHTML =
-      '@keyframes scaleOut {0%, 12.5%, 50%, 62.5%, 100% {opacity: .25} 25%, 37.5%, 75%, 87.5% {opacity: 1}} html body .Chua.Nghi.Ten.Digital.Clock.Widget, html body .Chua.Nghi.Ten.Digital.Clock.Widget * {margin: 0; padding: 0; border: 0; box-sizing: border-box; position: relative; display: block; font-family: Roboto, Arial, sans-serif; font-size: 16px; line-height: 19px; user-select: none; white-space: nowrap} html body .Chua.Nghi.Ten.Digital.Clock.Widget span {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget a {color: #fff; text-decoration: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget {position: fixed; padding: 10px; z-index: 2147483647} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock {background: #000000b5; color: #fff; border-radius: 10px; padding: 6px 10px; box-shadow: 0 4px 10px #00000080; min-width: 20px; min-height: 20px; backdrop-filter: blur(30px)} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntButtonMenu {display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntButtonMenu span {cursor: pointer} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright]:hover .cntleftButtonMenu {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft]:hover .cntrightButtonMenu {display: inline} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntSecondsProgress {position: absolute; top: 0; left: 0; width: 100%; height: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg {width: 100%; height: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path {fill: #0000; stroke-width: 2px; stroke: #fff} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntSecondsProgress svg path:first-child {stroke: #fff3} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus {position: absolute; background: #0009; border-radius: 10px; box-shadow: 0 4px 10px #00000080; backdrop-filter: blur(5px); border: 2px solid #fff; padding: 6px 10px; color: #fff; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntNotiStatus[active] {display: flex} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft] + .cntNotiStatus + .cntMenu[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntleft] + .cntNotiStatus[active] {left: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright] + .cntNotiStatus + .cntMenu[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntright] + .cntNotiStatus[active] {right: 10px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntbottom] + .cntNotiStatus[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntbottom] + .cntNotiStatus + .cntMenu[active] {bottom: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cnttop] + .cntNotiStatus[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cnttop] + .cntNotiStatus + .cntMenu[active] {top: 100%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cntbottom] + .cntNotiStatus[active] + .cntMenu[active] {bottom: 200%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock[cnttop] + .cntNotiStatus[active] + .cntMenu[active] {top: 200%} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li {cursor: pointer; border-bottom: 1px solid #fff4; padding-bottom: 5px; margin-bottom: 5px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li:hover {background: #fff2} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li:last-child {border: 0; padding: 0; margin: 0} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover {width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntBlockHover[active] {display: block; cursor: all-scroll} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText {white-space: nowrap} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul {margin: 4px 0 4px 20px; display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul[active] {display: block} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span {display: flex; justify-content: space-between} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span > span + span {margin-left: 50px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch {width: 35px; height: 20px; border: 2px solid #fff; border-radius: 10px; display: flex; justify-content: flex-start} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch[active], html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch[active] {justify-content: flex-end} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSwitch:before, html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntSwitch:before {content: ""; display: block; position: relative; width: 12px; height: 12px; border-radius: 50%; background: #fff; margin: 2px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li > span.cntUpdate + ul li span span + span span {display: none} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] ul li > span.cntUpdate + ul[active] li span span + span[active] span {display: inline; animation: scaleOut 1.5s linear .1s infinite} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] ul li > span.cntUpdate + ul[active] li span span + span[active] span:last-child {animation-delay: .2s} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu[active] ul li > span.cntUpdate + ul[active] li span span + span[active] span:first-child {animation-delay: 0s} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select {cursor: pointer; background-color: #fff0; border: 1px solid #fff9; border-radius: 5px; color: #fff; outline: none; margin: 0 0 0 50px; padding: 3px 5px} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select:focus-visible {border-color: #fff} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select option {color: #333; cursor: pointer} html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li + li > span > span {display: flex; align-items: center}';
-    cntTimeWidget.innerHTML =
-      '<div class="cntClock" cntleft cntright><div class="cntSecondsProgress"><svg><path stroke-linecap="round" stroke-linejoin="round"></path><path stroke-linecap="round" stroke-linejoin="round"></path></svg></div><span class="cntleftButtonMenu cntButtonMenu"><span title="Open or Close settings">•••</span> | </span><span class="cntClockText"><span class="cntHours">88</span>:<span class="cntMinutes">88</span><span class="cntSeconds">:88</span><span class="cntAmPm"></span></span><span class="cntrightButtonMenu cntButtonMenu"> | <span title="Open or Close settings">•••</span></span></div><div class="cntNotiStatus"></div><div class="cntMenu"><ul><li class="cntMoveButton" title="Move to...">Move</li><li class="cntSecondsDropdown"><span><span title="Seconds settings">Seconds</span><span title="Expand / Collapse">•••</span></span><ul><li><span><span>Show Seconds</span><span class="cntShowSecondsSwitch cntSwitch" title="Disable / Enable"></span></span></li><li><span><span>Smooth Seconds Progress Bar</span><span class="cntSmoothSecondsSwitch cntSwitch" title="Disable / Enable"></span></span></li></ul></li><li class="cntShowAMPM"><span><span>12 - Hour time</span><span class="cntHour12Switch cntSwitch" title="Disable / Enable"></span></span><ul><li><span><span>Show AM / PM</span><span class="cntShowAMPMSwitch cntSwitch" title="Disable / Enable"></span></span></li></ul></li><li><span class="cntUpdate"><span>Auto check update</span><span class="cntAutoUpdateSwitch cntSwitch" title="Disable / Enable"></span></span><ul class="cntCheckForUpdate"><li><span><span>Check for Update</span><span><span>•</span><span>•</span><span>•</span></span></span></span></li></ul><ul class="cntUpdateSettings"><li><span><span>Check for updates every time the page loads</span><span class="cntSwitch" title="Disable / Enable"></span></span></li><li><span><span>Check for updates every</span><select id="cntTimeUpdate"><option>5 minutes</option><option>15 minutes</option><option>30 minutes</option><option>1 hour</option><option>2 hours</option></select></span></li></ul></li></ul></div><div class="cntBlockHover" title="Double click to set and exit"></div>';
-    bodyElement.appendChild(cntTimeWidget);
-    window.document.querySelector("html").appendChild(cntStyle);
-    updateSeconds.size(
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock"
-        )
-        .getBoundingClientRect().width,
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock"
-        )
-        .getBoundingClientRect().height
-    );
     window.document
       .querySelector("html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock")
       .addEventListener("mouseenter", mouseEnterCntClock, { once: true });
-    window.document
-      .querySelector("html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock")
-      .addEventListener("mouseleave", mouseLeaveCntClock, { once: true });
     if (cntUserData.read("cntHideSeconds") != null)
       secondsHided = Number(cntUserData.read("cntHideSeconds"));
-    if (cntUserData.read("cntSmoothSeconds") != null)
-      smoothSeconds = Number(cntUserData.read("cntSmoothSeconds"));
-    if (smoothSeconds)
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntSmoothSecondsSwitch"
-        )
-        .setAttribute("active", "");
-    if (cntUserData.read("cnt12Hour") != null)
-      hour12 = Number(cntUserData.read("cnt12Hour"));
-    if (hour12) {
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntHour12Switch"
-        )
-        .setAttribute("active", "");
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntShowAMPM ul"
-        )
-        .setAttribute("active", "");
-    }
-    if (secondsHided) {
+    if (secondsHided)
       window.document.querySelector(
         "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntSeconds"
       ).style.display = "none";
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
-        )
-        .removeAttribute("active");
-    } else
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li.cntSecondsDropdown ul li span span.cntShowSecondsSwitch"
-        )
-        .setAttribute("active", "");
+    if (cntUserData.read("cntSmoothSeconds") != null)
+      smoothSeconds = Number(cntUserData.read("cntSmoothSeconds"));
+    if (cntUserData.read("cnt12Hour") != null)
+      hour12 = Number(cntUserData.read("cnt12Hour"));
     if (cntUserData.read("cntShowAMPM") != null)
       showAMPM = Number(cntUserData.read("cntShowAMPM"));
     window.requestAnimationFrame(updateTimeWithFPS);
@@ -1145,85 +2114,40 @@
         window.document.querySelector(
           "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntAmPm"
         ).innerHTML = " PM";
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
-        )
-        .setAttribute("active", "");
-    } else {
+    } else
       window.document.querySelector(
         "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock .cntClockText .cntAmPm"
       ).style.display = "none";
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntShowAMPMSwitch.cntSwitch"
-        )
-        .removeAttribute("active");
-    }
     if (cntUserData.read("cntWidgetWidth") != null)
       cntTimeOnWindowSize.width = Number(cntUserData.read("cntWidgetWidth"));
     if (cntUserData.read("cntWidgetHeight") != null)
       cntTimeOnWindowSize.height = Number(cntUserData.read("cntWidgetHeight"));
     if (cntUserData.read("cntAutoCheckUpdate") != null)
       autoCheckUpdate = Number(cntUserData.read("cntAutoCheckUpdate"));
-    if (autoCheckUpdate) {
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
-        )
-        .setAttribute("active", "");
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
-        )
-        .removeAttribute("active");
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
-        )
-        .setAttribute("active", "");
-    } else {
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span span.cntAutoUpdateSwitch.cntSwitch"
-        )
-        .removeAttribute("active");
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate + ul.cntUpdateSettings"
-        )
-        .removeAttribute("active");
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li span.cntUpdate + ul.cntCheckForUpdate"
-        )
-        .setAttribute("active", "");
-    }
     if (cntUserData.read("updateEveryPageLoads") != null)
       updateEveryPageLoads = Number(cntUserData.read("updateEveryPageLoads"));
-    if (updateEveryPageLoads) {
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
-        )
-        .setAttribute("active", "");
-      updateChecking = true;
-      checkForUpdate();
-    } else
-      window.document
-        .querySelector(
-          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings li span span.cntSwitch"
-        )
-        .removeAttribute("active");
-    if (cntUserData.read("cntCheckUpdateAfter") != null) {
+    if (cntUserData.read("cntCheckUpdateAfter") != null)
       cntCheckUpdateAfter = Number(cntUserData.read("cntCheckUpdateAfter"));
-      window.document.querySelector(
-        "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select"
-      ).selectedIndex = cntCheckUpdateAfter;
-    } else
-      window.document.querySelector(
-        "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntMenu ul li ul.cntUpdateSettings select"
-      ).selectedIndex = cntCheckUpdateAfter;
+    if (cntUserData.read("cntAlternatingSeconds") != null)
+      alternatingSeconds = Number(cntUserData.read("cntAlternatingSeconds"));
+    if (cntUserData.read("cntPaintGradually") != null)
+      paintGradually = Number(cntUserData.read("cntPaintGradually"));
+    updateSeconds.size(
+      window.document
+        .querySelector(
+          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock"
+        )
+        .getBoundingClientRect().width,
+      window.document
+        .querySelector(
+          "html body .Chua.Nghi.Ten.Digital.Clock.Widget .cntClock"
+        )
+        .getBoundingClientRect().height
+    );
+    if (cntUserData.read("cntSecondsProgressCountDown") != null)
+      secondsProgressCountDown = Number(
+        cntUserData.read("cntSecondsProgressCountDown")
+      );
     setViTriWidget(cntTimeOnWindowSize.width, cntTimeOnWindowSize.height);
     getViTriWidget(windowSize.width, windowSize.height);
     if (autoCheckUpdate && updateEveryPageLoads) {
