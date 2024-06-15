@@ -55,7 +55,7 @@
     const cntTimeWidget = window.document.querySelector(
         "html body div.Chua.Nghi.Ten.Digital.Clock.Widget"
       ),
-      currentVersion = "2024.05.23.17.36",
+      currentVersion = "2024.06.15.20.14",
       windowSize = {
         width: window.innerWidth,
         height: window.innerHeight,
